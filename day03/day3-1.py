@@ -33,25 +33,34 @@ for num, line in enumerate(newdata):
 
     #newline = line.replace('.', ' ').replace('x', ' ').split()
     print(newline)
+    currentLine = newdata[num]
+
     for numb, i in enumerate(newline):
+        
         if i.isdigit():
             length = len(i)
-            indexStart = line.find(i) - 1
+            indexStart = currentLine.find(i) - 1
             indexEnd = indexStart + length + 2
             if indexStart < 0:
                 indexStart = 0
             if indexEnd > len(line):
                 indexEnd = len(line) + 1
             xinslice1 = newdata[num-1][indexStart:indexEnd].find("x")
-            xinslice2 = newdata[num][indexStart:indexEnd].find("x")
-            xinslice3 = ""
+            xinslice2 = currentLine[indexStart:indexEnd].find("x")
+            xinslice3 = "" #leave blank to check for last line
+            
+            #current version may not require this, checking if last line exists
             try:
                 xinslice3 = newdata[num+1][indexStart:indexEnd].find("x")
             except:
-                xinslice3 = -1
+                xinslice3 = -1 #return -1 to indicate an x was not found
+            
             if xinslice1 != -1 or xinslice2 != -1 or xinslice3 != -1:
                 partsList.append(int(i))
-                print(f"added part {i}")
+
+            #replace number with . to avoid finding a 63 in 633 on next iteration
+            currentLine = currentLine.replace(i, "."*length, 1)
+                #print(f"added part {i}") #check which part numbers are added
     print(f"-------end-line-{num+1}-------")
     previous = newdata[num-1]
 print(partsList)
@@ -86,5 +95,3 @@ if "114" in line2:
     xinslice3 = line3[indexStart:indexEnd].find("*")
     if xinslice1 != -1 or xinslice2 != -1 or xinslice3 != -1:
         print('yes')'''
-
-
