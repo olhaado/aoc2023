@@ -36,14 +36,14 @@ for i in newLines:
         #print(f"the list is {j} and the last number is {j[-1]}")
         #print(f"revIndex = {revIndex}")
         try:
-            lineChecks[revIndex-1].append(lineChecks[revIndex][-1]+lineChecks[revIndex-1][-1])
+            lineChecks[revIndex-1].insert(0, lineChecks[revIndex-1][0]-lineChecks[revIndex][0])
             #print(lineChecks[revIndex])
             revIndex = revIndex - 1
         except:
             revIndex = -1
             #print(f"reset revIndex")
             continue
-        appendNum = lineChecks[revIndex][-1]
+        appendNum = lineChecks[revIndex][0]
     #print(f"appending {appendNum}")
     lastNums.append(appendNum)
 #print(lastNums)
